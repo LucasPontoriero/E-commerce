@@ -1,0 +1,52 @@
+{% extends 'App/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<div class="container">
+    
+    <div style="float: right;">
+        
+        {% if request.user.is_authenticated %}
+           {% include 'App/widget.html' %}
+        {% else %}
+
+          <div class="alert alert-danger text-center"> Inicie sesion para ver carro </div> 
+
+        {% endif %}
+        
+ 
+    </div>
+    
+  <div class="row">
+
+{% for producto in product %}
+
+    
+    <div class= "card" style= "width: 20%;"> 
+         <img src= "{{producto.imagen.url}}">
+         <div class="card-body p-4">
+            <div class="text-center">
+                
+                <h5 class="card-title">{{producto.nombre}}</h5>
+                <h7 class="card-text">{{producto.precio}}&nbsp;USD</h7>
+                
+                
+            </div>
+            <div class="card-footer text-center"></div>
+            <a href="{% url 'carro:agregar' producto.id %}" class="btn btn-success">Agregar al carro</a>
+        </div>
+    </div>
+
+    
+         
+
+    
+
+
+{% endfor %}
+</div>   
+</div>
+
+{% endblock %}
